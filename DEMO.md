@@ -22,17 +22,18 @@ export $(grep '^SANDBOX_MONGODB_URI=' ~/.config/carl-life-os/.env)
 
 Run these in order. The seconds are what survives the edit.
 
+**TESTED against the real footage at 4:07 PM — expected outputs below are real.**
+
 | # | Command | What to say / show | Keeps |
 |---|---|---|---|
-| 1 | `uv run python ingest.py --audio alex.m4a --context "walk with Mentra CTO, Build Fest"` | "The glasses caught my chat with Mentra's CTO. Watch the pipeline: transcribe, extract, embed, store — every step checkpoints to Atlas FIRST." | ~6s |
-| 2 | **Ctrl-C while it thinks after** `transcript: N chars` **(the extract pause)** | "I just killed it mid-run." | ~2s |
-| 3 | Press ↑, rerun the SAME command | Point at `resume point: extract` — "It resumes where it died. No cold start." | ~5s |
-| 4 | `uv run python ingest.py --audio mongo-pm.m4a --context "MongoDB startups booth"` | "Second conversation." (can time-lapse this one) | ~3s |
-| 5 | `uv run python recall.py "where is Mentra's office again?"` | Answer + cited chunks + similarity score on screen. "Semantic recall with receipts — Atlas Vector Search." | ~7s |
-| 6 | `uv run python recall.py "what did the MongoDB startups team promise me?"` | (optional, cut if long) | ~4s |
-| 7 | `uv run python recall.py --stats` | Point at strategy weights: "Every query logs which retrieval strategy won. The next query reorders itself. Stored state changes behavior — not just the prompt." | ~5s |
-| 8 | `uv run python recall.py --followup "Alexander"` | "And it drafts the follow-up I promised him." | ~4s |
-| 9 | Switch to Data Explorer tab, hover the 4 collections | "people, memories, checkpoints, retrieval_outcomes." | ~4s |
+| 1 | `uv run python ingest.py --text "$(cat 'demovid-assets/transcripts/IMG_3871.txt')" --context "Mentra booth, Build Fest, on camera with consent"` | "The glasses caught my chat with Mentra's CTO — consent's on tape. Watch: extract, embed, store — every step checkpoints to Atlas FIRST." | ~6s |
+| 2 | **Ctrl-C during the pause right after** `transcript: 998 chars` | "I just killed it mid-run." | ~2s |
+| 3 | Press ↑, rerun the SAME command | Point at `resume point: extract` — "It resumes where it died. No cold start." Ends with `person card: Alex (topics: 2)`. | ~5s |
+| 4 | `uv run python recall.py "where is Alex's office again?"` | Real answer: "Alex stated that the office is located in Hayes Valley." + 0.91 citation. "Semantic recall with receipts — Atlas Vector Search." | ~7s |
+| 5 | `uv run python recall.py "what is Mentra building next?"` | Real answer: Mentra Safety, Z87-plus certified frame for chemical/oil-and-gas workers. | ~5s |
+| 6 | `uv run python recall.py --stats` | Point at strategy weights: "Every query logs which retrieval strategy won; the next query reorders itself. Stored state changes behavior — not just the prompt." | ~5s |
+| 7 | `uv run python recall.py --followup "Alex"` | "And it drafts my follow-up." | ~4s |
+| 8 | Switch to Data Explorer tab, hover the 4 collections | "people, memories, checkpoints, retrieval_outcomes." | ~4s |
 
 **Retake rule:** if a take flubs, wipe and go again:
 ```bash
