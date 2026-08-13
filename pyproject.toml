@@ -1,0 +1,8 @@
+[project]
+name = "badge-memory"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.13"
+dependencies = [
+    "pymongo>=4.17.0",
+]
