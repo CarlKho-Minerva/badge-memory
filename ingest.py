@@ -108,4 +108,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n[interrupted] checkpoint saved in Atlas — rerun the same "
+              "command to resume where this died")
+        sys.exit(130)
